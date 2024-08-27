@@ -31,7 +31,7 @@ jobs:
     - name: Setup MLCube
       run: |
         python -m pip install --upgrade pip
-        pip install mlcube==0.0.9
+        pip install mlcube
         cd mlcube
         mlcube configure -Pdocker.build_strategy=always
         docker push aparida12/brats-peds-2024:v20240827
