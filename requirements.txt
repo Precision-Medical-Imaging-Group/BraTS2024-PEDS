@@ -1,0 +1,9 @@
+monai
+scikit-learn==1.4.2
+pillow
+einops
+typer
+pyradiomics
+fire
+tensorboard
+numpy==1.26.3

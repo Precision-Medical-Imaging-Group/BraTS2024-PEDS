@@ -1,0 +1,6 @@
+{
+    "-t1n.nii.gz": "_0000.nii.gz",
+    "-t1c.nii.gz": "_0001.nii.gz",
+    "-t2w.nii.gz": "_0002.nii.gz",
+    "-t2f.nii.gz": "_0003.nii.gz"
+}

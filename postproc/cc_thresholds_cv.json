@@ -1,0 +1,130 @@
+{
+    "BraTS-PED": {
+        "cluster_0": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 175
+            }
+        },
+        "cluster_1": {
+            "label_1": {
+                "th": 125
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 25
+            },
+            "label_4": {
+                "th": 275
+            }
+        },
+        "cluster_2": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 275
+            },
+            "label_3": {
+                "th": 75
+            },
+            "label_4": {
+                "th": 25
+            }
+        },
+        "cluster_3": {
+            "label_1": {
+                "th": 50
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 125
+            },
+            "label_4": {
+                "th": 100
+            }
+        },
+        "cluster_4": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 450
+            }
+        },
+        "cluster_5": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 400
+            },
+            "label_3": {
+                "th": 200
+            },
+            "label_4": {
+                "th": 250
+            }
+        },
+        "cluster_6": {
+            "label_1": {
+                "th": 50
+            },
+            "label_2": {
+                "th": 0
+            },
+            "label_3": {
+                "th": 0
+            },
+            "label_4": {
+                "th": 425
+            }
+        },
+        "cluster_7": {
+            "label_1": {
+                "th": 0
+            },
+            "label_2": {
+                "th": 425
+            },
+            "label_3": {
+                "th": 475
+            },
+            "label_4": {
+                "th": 375
+            }
+        },
+        "cluster_8": {
+            "label_1": {
+                "th": 25
+            },
+            "label_2": {
+                "th": 350
+            },
+            "label_3": {
+                "th": 25
+            },
+            "label_4": {
+                "th": 0
+            }
+        }
+    }
+}

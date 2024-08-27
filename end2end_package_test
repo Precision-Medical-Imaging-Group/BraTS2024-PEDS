@@ -1,0 +1,14 @@
+rm -rf /home/abhijeet/.medperf/predictions/
+cd mlcube
+mlcube configure -Pdocker.build_strategy=always
+docker push docker.synapse.org/syn61499333/cnmc-brats2024-ssa:latest
+medperf --gpus=all test run \
+   --offline --no-cache \
+   --demo_dataset_url synapse:syn52276402 \
+   --demo_dataset_hash "3a706d3b8e1f39411887c980b2ee5f62a7fa314a88811cdc0f5f8909d05126e5" \
+    -p /home/abhijeet/Code/BraTS2024-InferCode/test_mlcubes/prep_segmentation/ \
+    -e /home/abhijeet/Code/BraTS2024-InferCode/test_mlcubes/eval_segmentation/ \
+    -m /home/abhijeet/Code/BraTS2024-InferCode/mlcube/
+
+cd ../medperf
+python scripts/package-mlcube.py --mlcube /home/abhijeet/Code/BraTS2024-InferCode/mlcube --mlcube-types model --output ./ml-cube-infer-ssa.tar.gz

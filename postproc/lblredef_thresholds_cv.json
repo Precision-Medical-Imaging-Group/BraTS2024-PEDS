@@ -1,0 +1,129 @@
+{
+    "BraTS-PED": {
+        "cluster_0": {
+            "label_1": {
+                "th": 0.0,
+                "redefine_to": 2
+            },
+            "label_3": {
+                "th": 0.15,
+                "redefine_to": 2
+            },
+            "label_4": {
+                "th": 0.45,
+                "redefine_to": 2
+            }
+        },
+        "cluster_1": {
+            "label_1": {
+                "th": 0.0,
+                "redefine_to": 2
+            },
+            "label_3": {
+                "th": 0.95,
+                "redefine_to": 2
+            },
+            "label_4": {
+                "th": 0.2,
+                "redefine_to": 2
+            }
+        },
+        "cluster_2": {
+            "label_1": {
+                "th": 0.0,
+                "redefine_to": 2
+            },
+            "label_3": {
+                "th": 0.85,
+                "redefine_to": 2
+            },
+            "label_4": {
+                "th": 0.25,
+                "redefine_to": 2
+            }
+        },
+        "cluster_3": {
+            "label_1": {
+                "th": 0.0,
+                "redefine_to": 2
+            },
+            "label_3": {
+                "th": 0.25,
+                "redefine_to": 2
+            },
+            "label_4": {
+                "th": 0.15,
+                "redefine_to": 2
+            }
+        },
+        "cluster_4": {
+            "label_1": {
+                "th": 0.0,
+                "redefine_to": 2
+            },
+            "label_3": {
+                "th": 0.05,
+                "redefine_to": 2
+            },
+            "label_4": {
+                "th": 0.8,
+                "redefine_to": 2
+            }
+        },
+        "cluster_5": {
+            "label_1": {
+                "th": 0.05,
+                "redefine_to": 2
+            },
+            "label_3": {
+                "th": 0.95,
+                "redefine_to": 2
+            },
+            "label_4": {
+                "th": 0.5,
+                "redefine_to": 2
+            }
+        },
+        "cluster_6": {
+            "label_1": {
+                "th": 0.0,
+                "redefine_to": 2
+            },
+            "label_3": {
+                "th": 0.0,
+                "redefine_to": 2
+            },
+            "label_4": {
+                "th": 0.4,
+                "redefine_to": 2
+            }
+        },
+        "cluster_7": {
+            "label_1": {
+                "th": 0.05,
+                "redefine_to": 2
+            },
+            "label_3": {
+                "th": 0.05,
+                "redefine_to": 2
+            },
+            "label_4": {
+                "th": 0.75,
+                "redefine_to": 2
+            }
+        },
+        "cluster_8": {
+            "label_1": {
+                "th": 0.0,
+                "redefine_to": 2
+            },
+            "label_3": {
+                "th": 0.0,
+                "redefine_to": 2
+            },
+            "label_4": {
+                "th": 0.05,
+                "redefine_to": 2
+            }
+        }
+    }}
