@@ -43,13 +43,17 @@ def postprocess_single(input_dir, seg_dir, out_dir):
     seg_path = seg_dir / f"{case_name}.nii.gz"
     out_path = maybe_make_dir(out_dir) / f"{case_name}.nii.gz"
 
-    
     # compute radiomics
-    df_radiomics= extract_all(CONSTANTS['pyradiomics_paramfile'], input_dir.parent, case_name, seg_path, 1, region='wt', tmpp='/tmp/', seg_suffix='', sequences=['-t1n', '-t1c', '-t2w', '-t2f'])
-    # find cluster
-    cluster = get_cluster(df_radiomics, CLUSTER_ARTIFACT)[0]
+    try:
+        df_radiomics= extract_all(CONSTANTS['pyradiomics_paramfile'], input_dir.parent, case_name, seg_path, 1, region='wt', tmpp='/tmp/', seg_suffix='', sequences=['-t1n', '-t1c', '-t2w', '-t2f'])
+        # find cluster
+        cluster = get_cluster(df_radiomics, CLUSTER_ARTIFACT)[0]
+    except Exception as e:
+        print(f"Error in radiomics extraction: {e}")
+        df_radiomics = pd.DataFrame([{"StudyID":case_name}])
+        cluster = 4
+        
     df_radiomics['cluster'] = int(cluster)
-    
     # remove disconnected regions
     removed_cc_dir = maybe_make_dir(seg_dir / 'remove_cc')
     remove_small_component(TASK, THRESHOLD_FILE_CC, seg_dir, df_radiomics, removed_cc_dir)
