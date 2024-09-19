@@ -11,6 +11,7 @@ from pp_cluster.infer import get_cluster, get_cluster_artifacts
 from radiomics.feature_extraction_v2 import extract_all, save_json, load_json
 from postproc.postprocess_cc import remove_small_component
 from postproc.postprocess_lblredef import label_redefinition
+import pandas as pd
 
 TASK = 'BraTS-PED'
 #read the weights_cv.json
