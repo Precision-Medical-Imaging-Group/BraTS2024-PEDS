@@ -33,5 +33,4 @@ COPY ./weights/name.json /mlcube_project/weights/name.json
 
 ENV LANG C.UTF-8
 WORKDIR /mlcube_project/
-EXPOSE 8080
-ENTRYPOINT ["python3", "mlcube.py endpoint"]
+ENTRYPOINT ["python3", "mlcube.py"]
