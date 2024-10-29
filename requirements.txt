@@ -1,9 +1,13 @@
+numpy==1.26.3
 monai
 scikit-learn==1.4.2
+scikit-learn
 pillow
 einops
 typer
 pyradiomics
 fire
 tensorboard
-numpy==1.26.3
+flask
+boto3
+nibabel
