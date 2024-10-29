@@ -1,0 +1,1 @@
+{"input_location": "s3://c-input/BraTS-PED-00351-000/","output_location" :  "s3://c-input/BraTS-PED-00351-000/results"}
