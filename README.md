@@ -5,8 +5,7 @@ Click the buttons below to navigate the related pages quickly:
 <a href="https://docs.hope4kids.io/HOPE-Platform/"><img src="https://img.shields.io/badge/HOPE%20Platform-green.svg?style=plastic"/></a>
 <a href="https://segmenter.hope4kids.io/"><img src="https://img.shields.io/badge/Web%20App-orange.svg?style=plastic"/></a>
 <a href="https://docs.hope4kids.io/HOPE-Segmenter-Kids/"><img src="https://img.shields.io/badge/Web%20App%20Manual-yellow.svg?style=plastic"/></a>
-<a href="https://hub.docker.com/repository/docker/aparida12/brats-peds-2024"><img src="https://img.shields.io/badge/Docker-gray.svg?style=plastic"/></a>
-<a href="https://docs.hope4kids.io/HOPE-Segmenter-Kids/inference.html"><img src="https://img.shields.io/badge/Code%20Documentation-blue.svg?style=plastic"/></a>
+
 
 ## About
 
@@ -15,7 +14,7 @@ designed at [Children's National Hospital](https://www.childrensnational.org/) a
 for the segmentation and analysis of pediatric brain tumors in magnetic resonance imaging (MRI). 
 Developed in Python, this software aims to provide precise quantitative analysis 
 of pediatric brain MRI, to support clinical decision-making in diagnosis and prognosis.  
-The software and instruction are available at [segmenter.hope4kids.io](https://segmenter.hope4kids.io/) and [instructions](https://docs.hope4kids.io/HOPE-Segmenter-Kids/).
+The software and instructions are available at [segmenter.hope4kids.io](https://segmenter.hope4kids.io/) and [instructions](https://docs.hope4kids.io/HOPE-Segmenter-Kids/).
 
 <img alt="Example Screenshot" src="https://raw.githubusercontent.com/Precision-Medical-Imaging-Group/HOPE-Segmenter-Kids/refs/heads/main/docs/assets/img/Segmentation.png">
 
