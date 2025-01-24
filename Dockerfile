@@ -33,4 +33,5 @@ COPY ./weights/name.json /mlcube_project/weights/name.json
 
 ENV LANG C.UTF-8
 WORKDIR /mlcube_project/
+RUN python3 mlcube.py install  
 ENTRYPOINT ["python3", "mlcube.py"]

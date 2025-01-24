@@ -2,6 +2,8 @@ import subprocess
 from tqdm import tqdm
 import os
 from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor
+import math
 
 def maybe_make_dir(path):
     os.makedirs(path, exist_ok=True)
@@ -86,14 +88,21 @@ def run_infer_nnunet(input_folder: str, output_folder: str,  challenge_name: str
 
         return [Path(os.path.join(output_folder_fold, name+'.npz'))]
     else:
-        npz_path_list = [] 
-        for fold in tqdm(folds):
+        npz_path_list = []
+        def run_subprocess_nnunet(fold):
             output_folder_fold = os.path.join(output_folder, f"fold_{fold}")
             print(f"Running nnU-Net inference for fold {fold}")
             cmd = f"{env_set} nnUNetv2_predict -i '{input_folder}' -o '{output_folder_fold}' -d '{dataset_name}' -c '{configuration}' -tr '{trainer}' -p '{plans}' -f '{fold}'"
             if(save_npz):
                 cmd+=" --save_probabilities"
-            subprocess.run(cmd, shell=True)  # Executes the command in the shell
+            subprocess.run(cmd, shell=True) # Executes the command in the shell
+        
+        with ThreadPoolExecutor(max_workers=math.ceil(len(folds)/2)) as executor:
+            executor.map(run_subprocess_nnunet, folds)
+        for fold in tqdm(folds):
+            output_folder_fold = os.path.join(output_folder, f"fold_{fold}")
             npz_path_list.append(Path(os.path.join(output_folder_fold, name+'.npz')))
 
         return npz_path_list
+    
+ # Executes the command in the shell

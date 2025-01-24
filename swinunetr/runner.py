@@ -1,23 +1,12 @@
 import subprocess
 from pathlib import Path
 import torch
+from concurrent.futures import ThreadPoolExecutor
 
-def run_infer_swinunetr(input_path: Path, output_folder: Path, challenge, folds=[0,1,2,3,4])->list:
-    """runner that helps run swinunter based on a model path and 
-    returns path to the probability npz
+pretrained_name = 'best_model.pt'
+npz_folder_list = []
 
-    Args:
-        input_path (Path): path to the folder containing the 4 input files 
-        output_path (Path): path to folder to store teh npz file
-        model_folder_pth (Path): path where model weights are stored
-
-    Returns:
-        path: path to the npz file
-    """
-    pretrained_name = 'best_model.pt'
-    npz_folder_list = []
-    
-    for fold in folds:
+def run_inference(output_folder, input_path, fold = 0):
         if fold in [3,4]:
             e = 1000
         else:
@@ -45,6 +34,27 @@ def run_infer_swinunetr(input_path: Path, output_folder: Path, challenge, folds=
         cmd = ' '.join((cmd, '--pred_label'))
         print(cmd)
         subprocess.run(cmd, shell=True)  # Executes the command in the shell
+
+def run_infer_swinunetr(input_path: Path, output_folder: Path, challenge, folds=[0,1,2,3,4])->list:
+    """runner that helps run swinunter based on a model path and 
+    returns path to the probability npz
+
+    Args:
+        input_path (Path): path to the folder containing the 4 input files 
+        output_path (Path): path to folder to store teh npz file
+        model_folder_pth (Path): path where model weights are stored
+
+    Returns:
+        path: path to the npz file
+    """
+    
+
+    # Use ThreadPoolExecutor to parallelize the loop
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        executor.map(
+            lambda fold: run_inference(output_folder, input_path, fold), 
+            folds
+        )
     
     npz_path_list = [f / f"{input_path.name}-t1n.npz" for f in npz_folder_list]
     return npz_path_list

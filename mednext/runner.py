@@ -2,6 +2,8 @@ import os
 import subprocess
 from tqdm import tqdm
 from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor
+import math
 
 def maybe_make_dir(path):
     os.makedirs(path, exist_ok=True)
@@ -87,14 +89,19 @@ def run_infer_mednext(input_folder: str, output_folder: str,  challenge_name: st
         return [Path(os.path.join(output_folder_fold, name+'.npz'))], [Path(os.path.join(output_folder_fold, name+'.pkl'))]
     else:
         npz_path_list = []
-        pkl_path_list = [] 
-        for fold in tqdm(folds):
+        pkl_path_list = []
+        def run_subprocess_mednext(fold):
             output_folder_fold = os.path.join(output_folder, f"fold_{fold}")
             print(f"Running nnU-Net inference for fold {fold}")
             cmd = f"{env_set} mednextv1_predict -i '{input_folder}' -o '{output_folder_fold}' -t '{dataset_name}' -m '{configuration}' -tr '{trainer}' -p '{plans}' -f '{fold}'"
             if(save_npz):
                 cmd+=" --save_npz"
-            subprocess.run(cmd, shell=True)  # Executes the command in the shell
+            subprocess.run(cmd, shell=True) 
+
+        with ThreadPoolExecutor(max_workers=math.ceil(len(folds)/2)) as executor:
+            executor.map(run_subprocess_mednext, folds)
+        for fold in tqdm(folds):
+            output_folder_fold = os.path.join(output_folder, f"fold_{fold}")
             npz_path_list.append(Path(os.path.join(output_folder_fold, name+'.npz')))
             pkl_path_list.append(Path(os.path.join(output_folder_fold, name+'.pkl')))
 

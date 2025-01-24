@@ -1,3 +1,4 @@
 cd mlcube
 mlcube configure -Pdocker.build_strategy=always
-docker run --shm-size=2gb --gpus=all -v /media/abhijeet/DataThunder/ASNR-MICCAI-BraTS2023-SSA-Challenge-TrainingData_V2/test:/input/ -v /media/abhijeet/DataThunder/ASNR-MICCAI-BraTS2023-SSA-Challenge-TrainingData_V2/test:/output aparida12/brats-peds-2024:v20240827 infer --data_path /input/ --output_path /output/
+docker push docker.io/aparida12/brats-peds-2024:v20250123
+docker run --shm-size=2gb --gpus=all -v /media/abhijeet/DataThunder1/ASNR-MICCAI-BraTS2023-SSA-Challenge-TrainingData_V2/test:/input/ -v /media/abhijeet/DataThunder1/ASNR-MICCAI-BraTS2023-SSA-Challenge-TrainingData_V2/test:/output aparida12/brats-peds-2024:v20250123 infer --data_path /input/ --output_path /output/

@@ -3,6 +3,8 @@ import numpy as np
 import nibabel as nib
 import os
 
+from concurrent.futures import ThreadPoolExecutor
+
 def convert_npz_mednext(npz_path, pkl_path, save_nifti=False, nifti_dir=Path('./tmp_prob_nifti'), suffix='mednext'):
     npz = np.load(npz_path, allow_pickle=True)
     pkl = np.load(pkl_path, allow_pickle=True)
@@ -79,24 +81,40 @@ def ped_ensemble(
     if os.path.exists(ensembled_path / f"{case}.nii.gz"):
         return ensembled_path / f"{case}.nii.gz"
 
-    # swinunetr
-    prob_swinunetr = convert_npz_swinunetr(swinunetr_npz_path_list[0])
-    for i in range(1, len(swinunetr_npz_path_list)):
-        prob_swinunetr += convert_npz_swinunetr(swinunetr_npz_path_list[i])
-    prob_swinunetr /= len(swinunetr_npz_path_list)
-    print(f"Probabilities SwinUNETR: {prob_swinunetr.shape}")
-    # nnunet
-    prob_nnunet = convert_npz_nnunet(nnunet_npz_path_list[0])
-    for i in range(1, len(nnunet_npz_path_list)):
-        prob_nnunet += convert_npz_nnunet(nnunet_npz_path_list[i])
-    prob_nnunet /= len(nnunet_npz_path_list)
-    print(f"Probabilities nnUNet: {prob_nnunet.shape}")
-    # mednext
-    prob_mednext = convert_npz_mednext(mednext_npz_path_list[0], mednext_pkl_path_list[0])
-    for i in range(1, len(mednext_npz_path_list)):
-        prob_mednext += convert_npz_mednext(mednext_npz_path_list[i], mednext_pkl_path_list[i])
-    prob_mednext /= len(mednext_npz_path_list)
-    print(f"Probabilities MedNeXt: {prob_mednext.shape}")
+    # Helper functions to compute probabilities in parallel
+    def compute_swinunetr_probs():
+        prob = convert_npz_swinunetr(swinunetr_npz_path_list[0])
+        for i in range(1, len(swinunetr_npz_path_list)):
+            prob += convert_npz_swinunetr(swinunetr_npz_path_list[i])
+        return prob / len(swinunetr_npz_path_list)
+
+    def compute_nnunet_probs():
+        prob = convert_npz_nnunet(nnunet_npz_path_list[0])
+        for i in range(1, len(nnunet_npz_path_list)):
+            prob += convert_npz_nnunet(nnunet_npz_path_list[i])
+        return prob / len(nnunet_npz_path_list)
+
+    def compute_mednext_probs():
+        prob = convert_npz_mednext(mednext_npz_path_list[0], mednext_pkl_path_list[0])
+        for i in range(1, len(mednext_npz_path_list)):
+            prob += convert_npz_mednext(mednext_npz_path_list[i], mednext_pkl_path_list[i])
+        return prob / len(mednext_npz_path_list)
+
+    # Use ThreadPoolExecutor to parallelize the probability computations
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        future_swinunetr = executor.submit(compute_swinunetr_probs)
+        future_nnunet = executor.submit(compute_nnunet_probs)
+        future_mednext = executor.submit(compute_mednext_probs)
+
+        # Wait for results
+        prob_swinunetr = future_swinunetr.result()
+        print(f"Probabilities SwinUNETR: {prob_swinunetr.shape}")
+
+        prob_nnunet = future_nnunet.result()
+        print(f"Probabilities nnUNet: {prob_nnunet.shape}")
+
+        prob_mednext = future_mednext.result()
+        print(f"Probabilities MedNeXt: {prob_mednext.shape}")
     
     prob = weights[0] * prob_swinunetr + weights[1] * prob_nnunet + weights[2] * prob_mednext
     prob /= sum(weights)
